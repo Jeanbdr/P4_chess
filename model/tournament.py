@@ -1,0 +1,48 @@
+from datetime import date
+from db import database
+
+TODAY = date.today().strftime("%d/%m/%y")
+ROUND_NUMBERS = 4
+PARTICIPANTS = 2
+
+
+class Tournoi:
+    """Classe permettant la création d'un tournoi"""
+
+    def __init__(
+        self,
+        name,
+        place,
+        time_control,
+        participants,
+        today=TODAY,
+        round_number=ROUND_NUMBERS,
+        description="",
+    ):
+        self.name = name
+        self.place = place
+        self.time_control = time_control
+        self.participants = participants
+        self.today = today
+        self.round_number = round_number
+        self.description = description
+        self.save()
+
+    def __str__(self):
+        return f"{self.name} se jouant à {self.place} le {self.today}"
+
+    @property
+    def serialized_tournament(self):
+        return {
+            "name": self.name,
+            "place": self.place,
+            "time control": self.time_control,
+            "participants": self.participants,
+            "today": self.today,
+            "round number": self.round_number,
+            "descriptions": self.description,
+        }
+
+    def save(self):
+        tournament_table = database.table("tournament")
+        tournament_table.insert(self.serialized_tournament)
