@@ -7,7 +7,7 @@ from model.player import Player
 from model.round import Round
 from model.match import Match
 
-from match import MatchView
+from views.match_view import MatchView
 
 from db import database
 
