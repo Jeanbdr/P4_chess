@@ -9,7 +9,7 @@ PARTICIPANTS = 2
 class Tournoi:
     """Classe permettant la création d'un tournoi"""
 
-    def __init__(
+    def __init__(  # VALIDE
         self,
         name,
         place,
@@ -28,11 +28,11 @@ class Tournoi:
         self.description = description
         self.save()
 
-    def __str__(self):
+    def __str__(self):  # VALIDE
         return f"{self.name} se jouant à {self.place} le {self.today}"
 
     @property
-    def serialized_tournament(self):
+    def serialized_tournament(self):  # VALIDE
         return {
             "name": self.name,
             "place": self.place,
@@ -43,6 +43,6 @@ class Tournoi:
             "descriptions": self.description,
         }
 
-    def save(self):
+    def save(self):  # EN COURS
         tournament_table = database.table("tournament")
         tournament_table.insert(self.serialized_tournament)

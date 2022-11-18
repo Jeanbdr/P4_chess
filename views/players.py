@@ -9,10 +9,10 @@ class NegativeValue(Exception):
     pass
 
 
-class PlayerInput:
+class PlayerView:
     """Affiche les vues"""
 
-    def input_player(self):
+    def input_player(self):  # VALIDE
         """Demande à l'utilisateur les informations permettant la création d'un joueur"""
         while True:
             first_name = input("Prénom du joueur: ")
