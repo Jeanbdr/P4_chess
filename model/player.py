@@ -1,4 +1,4 @@
-from db import database
+from db import database, Query
 
 
 class Player:
@@ -12,7 +12,7 @@ class Player:
         self.ranking = ranking
         self.score = 0
         self.played_against = []
-        self._id = self.save()
+        # self._id = self.save()
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -30,7 +30,10 @@ class Player:
 
     def save(self):
         player_table = database.table("players")
-        return player_table.insert(self.serialized_player)
+        player_table.insert(self.serialized_player)
+        Info = Query()
+        player_id = player_table.get(Info.first_name == self.first_name)
+        return player_id
 
     def update_elo(self, new_elo):
         database.update({"ranking": new_elo}, doc_ids=self._id)

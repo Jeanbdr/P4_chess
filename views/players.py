@@ -1,4 +1,6 @@
 import datetime, re
+from db import database
+from model.player import Player
 
 
 class NegativeValue(Exception):
@@ -53,6 +55,9 @@ class PlayerInput:
             "ranking": ranking,
         }
 
+    def print_player(self):
+        print(f"{Player} a été crée et posséde le numéro {Player.save()}")
+
     def get_result(winner, player_1, player_2):  # A DEPLACER DANS MATCH VIEW (à créer)
         while True:
             try:
@@ -84,11 +89,12 @@ class PlayerInput:
             return player_2
 
     def search_player(self, players):
-        player_ids = {}
+        print(players)
+        player_ids = []  # {}
         text_to_display = f"Selectionner un joueur :\n"
         for player in players:
-            text_to_display += f"{player._id} {player} \n"
-            player_ids[player._id] = player
+            text_to_display += f"{player} \n"
+            player_ids = player
         text_to_display += ">>>"
         while True:
             try:

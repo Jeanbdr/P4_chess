@@ -7,7 +7,7 @@ from model.player import Player
 from model.round import Round
 from model.match import Match
 
-from tinydb import TinyDB, Query, where
+from db import database
 
 
 class Controler:
@@ -52,7 +52,7 @@ class Controler:
             player_info["gender"],
             player_info["ranking"],
         )
-        print(player)
+        print(self.player_view.print_player())
         self.players.append(player)
 
     def create_players(self):
@@ -86,9 +86,11 @@ class Controler:
             self.current_round.matches.append(match)
 
     def update_player_elo(self):  # A VOIR AVEC SOFIEN
-        searched_player = self.player_view.search_player()
+        searched_player = self.player_view.search_player(
+            players=database.table("players")
+        )
         new_elo = self.player_view.change_elo()
-        searched_player.update_elo(new_elo)
+        Player().update_elo(new_elo)
         # choosen_player = db_player.get(doc_id=searched_player)
         # db_player.update({"ranking": new_elo}, doc_ids=choosen_player)
         # db_player.update({"ranking": new_elo}, doc_ids=player_elo)
