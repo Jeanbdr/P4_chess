@@ -7,7 +7,7 @@ from model.player import Player
 from model.round import Round
 from model.match import Match
 
-from views.ma
+from match import MatchView
 
 from db import database
 
@@ -83,7 +83,7 @@ class Controler:
             match = Match(player_1=sorted_players[i], player_2=sorted_players[i + 1])
             # match = Match(player_1=sorted_players[i], player_2=sorted_players[i + (self.tournament.participants // 2)])
             print()
-            winner = (match.player_1, match.player_2)
+            winner = MatchView().get_result(match.player_1, match.player_2)
             match.update_winner(winner)
             self.current_round.matches.append(match)
 
