@@ -1,4 +1,4 @@
-class Match:
+class Match:  # VALIDE
     """Class permettant la création d'un match"""
 
     def __init__(self, player_1, player_2):

@@ -4,7 +4,7 @@ from db import database, Query
 class Player:
     """Création d'une fiche joueur"""
 
-    def __init__(self, first_name, last_name, birthdate, gender, ranking):
+    def __init__(self, first_name, last_name, birthdate, gender, ranking):  # VALIDE
         self.first_name = first_name
         self.last_name = last_name
         self.birthdate = birthdate
@@ -14,11 +14,11 @@ class Player:
         self.played_against = []
         # self._id = self.save()
 
-    def __str__(self):
+    def __str__(self):  # VALIDE
         return f"{self.first_name} {self.last_name}"
 
     @property
-    def serialized_player(self):
+    def serialized_player(self):  # VALIDE
         return {
             "first_name": self.first_name,
             "last_name": self.last_name,
@@ -28,12 +28,12 @@ class Player:
             "score": self.score,
         }
 
-    def save(self):
+    def save(self):  # EN COURS
         player_table = database.table("players")
-        player_table.insert(self.serialized_player)
-        Info = Query()
-        player_id = player_table.get(Info.first_name == self.first_name)
-        return player_id
+        return player_table.insert(self.serialized_player)
+        # Info = Query()
+        # player_id = player_table.get(Info.first_name == self.first_name)
+        # return player_id
 
-    def update_elo(self, new_elo):
+    def update_elo(self, new_elo):  # EN COURS
         database.update({"ranking": new_elo}, doc_ids=self._id)

@@ -4,7 +4,7 @@ from controler.controler import Controler
 class MainMenu:
     """Demande à l'utilisateur ce qu'il souhaite faire avant de le rediriger"""
 
-    def input_menu(self):
+    def input_menu(self):  # VALIDE
         while True:
             try:
                 menu = int(
