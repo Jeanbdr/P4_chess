@@ -26,5 +26,7 @@ class MainMenu:
                 Controler().run()
             elif menu == 2:
                 Controler().update_player_elo()
+            elif menu == 3:
+                Controler().test()
             else:
                 pass

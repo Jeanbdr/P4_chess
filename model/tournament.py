@@ -31,7 +31,6 @@ class Tournoi:
     def __str__(self):  # VALIDE
         return f"{self.name} se jouant à {self.place} le {self.today}"
 
-    @property
     def serialized_tournament(self):  # VALIDE
         return {
             "name": self.name,
@@ -45,4 +44,4 @@ class Tournoi:
 
     def save(self):  # EN COURS
         tournament_table = database.table("tournament")
-        tournament_table.insert(self.serialized_tournament)
+        tournament_table.insert(self.serialized_tournament())

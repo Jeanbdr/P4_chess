@@ -9,7 +9,7 @@ from model.match import Match
 
 from views.match_view import MatchView
 
-from db import database
+from db import Query, where, database, db_player, db_tournament
 
 
 class Controler:
@@ -38,11 +38,7 @@ class Controler:
             tournament_info["round_number"],
             tournament_info["description"],
         )
-        tournament.serialized_tournament()
         print(tournament)
-        self.tournament_database(
-            serialized_tournament=tournament.serialized_tournament()
-        )
         return tournament
 
     def create_one_player(self):  # VALIDE
@@ -53,9 +49,11 @@ class Controler:
             player_info["birthdate"],
             player_info["gender"],
             player_info["ranking"],
+            player_info["player_id"],
         )
-        print(self.player_view.print_player())
+        print(player)
         self.players.append(player)
+        return player
 
     def create_players(self):  # EN COURS
         for _ in range(int(self.tournament.participants)):
@@ -88,11 +86,20 @@ class Controler:
             self.current_round.matches.append(match)
 
     def update_player_elo(self):  # EN COURS
-        searched_player = self.player_view.search_player(
-            players=database.table("players")
-        )
+        searched_player = self.player_view.search_player()
+        pre_change = db_player.search(where("player_id") == searched_player)
+        print(pre_change)
         new_elo = self.player_view.change_elo()
-        Player().update_elo(new_elo)
+        jesus = db_player.update(
+            {"ranking": new_elo}, where("player_id") == searched_player
+        )
+        post_change = db_player.search(where("player_id") == searched_player)
+        print(post_change)
+        # Player().update_elo(new_elo)
         # choosen_player = db_player.get(doc_id=searched_player)
         # db_player.update({"ranking": new_elo}, doc_ids=choosen_player)
         # db_player.update({"ranking": new_elo}, doc_ids=player_elo)
+
+    def check_id(self):  # MARCHE PAS
+        test = database.search(Query().column == "player_id")
+        return test

@@ -1,10 +1,15 @@
 import datetime, re
-from db import database
-from model.player import Player
+from db import database, Query, where
 
 
 class NegativeValue(Exception):
     """Raised when elo is negative"""
+
+    pass
+
+
+class IdExist(Exception):
+    """Raised when ID already exist"""
 
     pass
 
@@ -46,6 +51,17 @@ class PlayerView:
                 print("L'elo du joueur n'est pas valide merci de saisir un elo valide ")
             else:
                 break
+        while (
+            True
+        ):  # L'IDEE LA C'EST DE CREER UN ID POUR RETROUVER LE JOUEUR SAUF QUE CA MARCHE PAS
+            try:
+                player_id = int(input("Id choisis par le joueur (exemple : 1234):"))
+                if player_id in database.search(where("player_id") == player_id):
+                    raise IdExist("Ca existe")
+            except ValueError:
+                print("L'id choisis n'est pas valide")
+            else:
+                break
 
         return {
             "first_name": first_name,
@@ -53,43 +69,33 @@ class PlayerView:
             "birthdate": birthdate,
             "gender": gender,
             "ranking": ranking,
+            "player_id": player_id,
         }
 
-    def print_player(self):
-        print(f"{Player} a été crée et posséde le numéro {Player.save()}")
-
-    def get_result(winner, player_1, player_2):  # A DEPLACER DANS MATCH VIEW (à créer)
+    def change_elo(self):
         while True:
             try:
-                winner = int(
-                    input(
-                        f"Vainqueur du match : \n"
-                        f"0 Match nul \n"
-                        f"1 {player_1} \n"
-                        f"2 {player_2} \n"
-                        ">>>"
-                    )
-                )
+                new_elo = int(input(f"Nouvel ELO :\n" f">>>"))
             except ValueError:
-                print("Choix non valable, veuillez saisir une des valeurs possibles")
-            if winner not in (0, 1, 2):
-                print(
-                    "Choix non valable merci de choisir une des valeurs suivantes (0, 1 ou 2)"
-                )
+                print("Elo non valide merci de saisir un elo valide")
             else:
                 break
-        if winner == 0:
-            print(f"{player_1} et {player_2} ont fait match nul")
-            return None
-        elif winner == 1:
-            print(f"{player_1} à gagné")
-            return player_1
-        elif winner == 2:
-            print(f"{player_2} à gagné")
-            return player_2
+        return new_elo
 
+    def search_player(self):
+        while True:
+            try:
+                player_id = int(input("ID du joueur recherhché \n >>>"))
+            except ValueError:
+                print("ID non valable merci de saisir un ID existant")
+            else:
+                break
+        return player_id
+
+
+"""
     def search_player(self, players):
-        print(players)
+        # print(players)
         player_ids = []  # {}
         text_to_display = f"Selectionner un joueur :\n"
         for player in players:
@@ -106,13 +112,4 @@ class PlayerView:
             else:
                 break
         return player_ids[player_id]
-
-    def change_elo(self):
-        while True:
-            try:
-                new_elo = int(input(f"Nouvel ELO :\n" f">>>"))
-            except ValueError:
-                print("Elo non valide merci de saisir un elo valide")
-            else:
-                break
-        return new_elo
+"""
