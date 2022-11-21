@@ -1,4 +1,5 @@
 from model.tournament import ROUND_NUMBERS, PARTICIPANTS, TODAY
+from db import db_player, Check
 
 
 class CreateTournament:  # NOM A CHANGER
@@ -52,6 +53,18 @@ class CreateTournament:  # NOM A CHANGER
                     )
                     continue
                 break
+
+        while True:
+            load_player = int(input("Combien de joueur voulez vous charger ? \n >>>"))
+            if load_player > participants:
+                print(
+                    "Opération impossible nombre de joueurs à chargé supérieur à celui du tournoi"
+                )
+            else:
+                for _ in range(load_player):
+                    player_id = int(input("Id du joueur à charger :"))
+                break
+                # db_player.search(Check.player_id == player_id)
 
         description = input("Saisissez une description du tournoi (optionnelle): ")
         return {

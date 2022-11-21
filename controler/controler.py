@@ -74,12 +74,36 @@ class Controler:
                 self.players, key=lambda player: player.ranking, reverse=True
             )
         else:
-            sorted_players = sorted(
+            sorted_players = []
+            sorted_players_score = sorted(
                 self.players, key=lambda player: player.score, reverse=True
             )
+            for i, player in enumerate(sorted_players):
+                try:
+                    sorted_players.append(player)
+                except player.score == sorted_players_score[i + 1].score:
+                    if player.ranking > sorted_players_score[i + 1].score:
+                        hi_rank_player = player
+                        lo_rank_player = sorted_players_score[i + 1]
+                    else:
+                        hi_rank_player = sorted_players_score[i + 1]
+                        lo_rank_player = player
+                    sorted_players.append(hi_rank_player)
+                    sorted_players.append(lo_rank_player)
+
+        best_players = sorted_players[len(sorted_players) // 2 :]
+        worst_players = sorted_players[: len(sorted_players) // 2]
+
+        player_pair = []
+
+        for i, player in enumerate(best_players):
+            start = 0
+            while True:
+                try:
+                    player_2 = worst_players[i+start]
+
         for i in range(len(sorted_players) - 1):
             match = Match(player_1=sorted_players[i], player_2=sorted_players[i + 1])
-            # match = Match(player_1=sorted_players[i], player_2=sorted_players[i + (self.tournament.participants // 2)])
             print()
             winner = MatchView().get_result(match.player_1, match.player_2)
             match.update_winner(winner)
