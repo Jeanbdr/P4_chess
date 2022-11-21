@@ -1,5 +1,5 @@
 import datetime, re
-from db import database, Query, where
+from db import Check, db_player, where
 
 
 class NegativeValue(Exception):
@@ -51,15 +51,11 @@ class PlayerView:
                 print("L'elo du joueur n'est pas valide merci de saisir un elo valide ")
             else:
                 break
-        while (
-            True
-        ):  # L'IDEE LA C'EST DE CREER UN ID POUR RETROUVER LE JOUEUR SAUF QUE CA MARCHE PAS
-            try:
-                player_id = int(input("Id choisis par le joueur (exemple : 1234):"))
-                if player_id in database.search(where("player_id") == player_id):
-                    raise IdExist("Ca existe")
-            except ValueError:
-                print("L'id choisis n'est pas valide")
+        while True:
+            player_id = int(input("Id choisis par le joueur (exemple : 1234): "))
+            already_taken = db_player.contains(Check.player_id == player_id)
+            if already_taken == True:
+                print("L'id est déjà choisis veuillez en choisir un autre")
             else:
                 break
 

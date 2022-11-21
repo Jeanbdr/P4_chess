@@ -52,6 +52,7 @@ class CreateTournament:  # NOM A CHANGER
                     )
                     continue
                 break
+
         description = input("Saisissez une description du tournoi (optionnelle): ")
         return {
             "name": name,

@@ -1,4 +1,4 @@
-from db import database, Query
+from db import db_player
 
 
 class Player:
@@ -18,9 +18,7 @@ class Player:
         self._id = self.save()
 
     def __str__(self):  # VALIDE
-        return (
-            f"{self.first_name} {self.last_name} avec l'id {self.player_id} a été crée"
-        )
+        return f"{self.first_name} {self.last_name} id {self.player_id}"
 
     def serialized_player(self):  # VALIDE
         return {
@@ -34,9 +32,4 @@ class Player:
         }
 
     def save(self):  # EN COURS
-        player_table = database.table("players")
-        player_table.insert(self.serialized_player())
-        return player_table
-
-    def update_elo(self, new_elo):  # EN COURS
-        database.update({"ranking": new_elo}, doc_ids=self._id)
+        return db_player.insert(self.serialized_player())

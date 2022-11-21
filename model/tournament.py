@@ -1,5 +1,5 @@
 from datetime import date
-from db import database
+from db import db_tournament
 
 TODAY = date.today().strftime("%d/%m/%y")
 ROUND_NUMBERS = 4
@@ -43,5 +43,4 @@ class Tournoi:
         }
 
     def save(self):  # EN COURS
-        tournament_table = database.table("tournament")
-        tournament_table.insert(self.serialized_tournament())
+        db_tournament.insert(self.serialized_tournament())

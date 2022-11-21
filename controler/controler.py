@@ -9,7 +9,7 @@ from model.match import Match
 
 from views.match_view import MatchView
 
-from db import Query, where, database, db_player, db_tournament
+from db import where, db_player, db_tournament
 
 
 class Controler:
@@ -90,16 +90,6 @@ class Controler:
         pre_change = db_player.search(where("player_id") == searched_player)
         print(pre_change)
         new_elo = self.player_view.change_elo()
-        jesus = db_player.update(
-            {"ranking": new_elo}, where("player_id") == searched_player
-        )
+        db_player.update({"ranking": new_elo}, where("player_id") == searched_player)
         post_change = db_player.search(where("player_id") == searched_player)
         print(post_change)
-        # Player().update_elo(new_elo)
-        # choosen_player = db_player.get(doc_id=searched_player)
-        # db_player.update({"ranking": new_elo}, doc_ids=choosen_player)
-        # db_player.update({"ranking": new_elo}, doc_ids=player_elo)
-
-    def check_id(self):  # MARCHE PAS
-        test = database.search(Query().column == "player_id")
-        return test
