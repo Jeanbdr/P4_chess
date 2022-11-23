@@ -1,4 +1,3 @@
-from model.tournament import ROUND_NUMBERS
 from datetime import datetime
 from model.match import Match
 
@@ -37,3 +36,10 @@ class Round:
                 pair[0].save_serialized_player(save_tournament_score=True),
                 pair[1].save_serialized_player(save_tournament_score=True),
             )
+        return {
+            "name": self.round_name,
+            "players_pairs": serialized_pair,
+            "matchs": [match.save_serialized_player() for match in self.matchs],
+            "start_date": self.start_date,
+            "end_date": self.end_date,
+        }
