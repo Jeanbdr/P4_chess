@@ -10,8 +10,8 @@ class Player:
         self.birthdate = birthdate
         self.gender = gender
         self.ranking = ranking
-        self.score = 0
         self.total_score = total_score
+        self.score = 0
         self.played_against = []
         self._id = self.save()
 
@@ -25,8 +25,8 @@ class Player:
             "birthdate": self.birthdate,
             "gender": self.gender,
             "ranking": self.ranking,
-            "score": self.score,
             "total_score": self.total_score,
+            "score": self.score,
         }
         if save_tournament_score:
             serialized_players["score"] = self.score

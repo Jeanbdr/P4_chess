@@ -60,6 +60,7 @@ class PlayerView:
             "birthdate": birthdate,
             "gender": gender,
             "ranking": ranking,
+            "total_score": 0,
         }
 
     def change_elo(self):
