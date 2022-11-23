@@ -49,6 +49,7 @@ class Controler:
             player_info["birthdate"],
             player_info["gender"],
             player_info["ranking"],
+            player_info["player_id"],
             player_info["total_score"],
         )
         player.save_serialized_player()
