@@ -5,7 +5,7 @@ from views.players import PlayerView
 from model.player import Player
 
 from model.round import Round
-from model.match_model import Match
+from model.match import Match
 
 from views.match_view import MatchView
 
@@ -68,6 +68,7 @@ class Controler:
         self.current_round = Round()
         self.create_matches()
         self.create_pairs()
+        self.create_matches()
 
     def create_pairs(self):
         if self.current_round == 0:
@@ -117,8 +118,10 @@ class Controler:
         return player_pair
 
     def create_matches(self):
-        matches = Match(player_pair=self.create_pairs())
-        winner = MatchView().get_result(matches)
+        match = Match(player_pair=self.create_pairs())
+        winner = MatchView().get_result(match)
+        match.update_winner(winner)
+        self.current_round.matches.append(match)
 
     def update_player_elo(self):  # A VALIDER
         searched_player = self.player_view.search_player()
