@@ -2,7 +2,7 @@ from controler.controler import Controler
 
 
 class MainMenu:
-    """Demande à l'utilisateur ce qu'il souhaite faire avant de le rediriger"""
+    """Class demandant à l'utilisateur ce qu'il souhaite faire une fois qu'il a lancé le script"""
 
     def input_menu(self):  # VALIDE
         while True:

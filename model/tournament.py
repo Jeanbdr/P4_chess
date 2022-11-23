@@ -2,8 +2,8 @@ from datetime import date
 from db import db_tournament
 
 TODAY = date.today().strftime("%d/%m/%y")
-ROUND_NUMBERS = 4
-PARTICIPANTS = 2
+ROUND_NUMBERS = 2
+PARTICIPANTS = 4
 
 
 class Tournoi:

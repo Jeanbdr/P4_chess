@@ -5,11 +5,11 @@ from views.players import PlayerView
 from model.player import Player
 
 from model.round import Round
-from model.match import Match
+from model.match_model import Match
 
 from views.match_view import MatchView
 
-from db import where, db_player, db_tournament
+from db import where, db_player, db_tournament, database
 
 
 class Controler:
@@ -67,49 +67,60 @@ class Controler:
     def create_one_round(self):  # VALIDE
         self.current_round = Round()
         self.create_matches()
+        self.create_pairs()
 
-    def create_matches(self):  # EN COURS
+    def create_pairs(self):
         if self.current_round == 0:
-            sorted_players = sorted(
+            sorted_player = sorted(
                 self.players, key=lambda player: player.ranking, reverse=True
             )
         else:
-            sorted_players = []
-            sorted_players_score = sorted(
+            sorted_player = []
+            score_sorted = sorted(
                 self.players, key=lambda player: player.score, reverse=True
             )
-            for i, player in enumerate(sorted_players):
+            for i, player in enumerate(score_sorted):
                 try:
-                    sorted_players.append(player)
-                except player.score == sorted_players_score[i + 1].score:
-                    if player.ranking > sorted_players_score[i + 1].score:
-                        hi_rank_player = player
-                        lo_rank_player = sorted_players_score[i + 1]
+                    sorted_player.append(player)
+                except player.total_score == score_sorted[i + 1].total_score:
+                    if player.ranking > score_sorted[i + 1].ranking:
+                        good_player = player
+                        bad_player = score_sorted[i + 1]
                     else:
-                        hi_rank_player = sorted_players_score[i + 1]
-                        lo_rank_player = player
-                    sorted_players.append(hi_rank_player)
-                    sorted_players.append(lo_rank_player)
+                        good_player = score_sorted[i + 1]
+                        bad_player = player
+                    sorted_player.append(good_player)
+                    sorted_player.append(bad_player)
 
-        best_players = sorted_players[len(sorted_players) // 2 :]
-        worst_players = sorted_players[: len(sorted_players) // 2]
-
+        best_half = sorted_player[len(sorted_player) // 2 :]
+        worst_half = sorted_player[: len(sorted_player) // 2]
         player_pair = []
-
-        for i, player in enumerate(best_players):
-            start = 0
+        for i, player in enumerate(best_half):
+            p = 0
             while True:
                 try:
-                    player_2 = worst_players[i+start]
+                    player_2 = worst_half[i + p]
+                except IndexError:
+                    player_2 = worst_half[i]
+                    player_pair.append((player, player_2))
+                    player.played_against.append(player_2)
+                    player_2.played_against.append(player)
+                    break
+                if player in player_2.played_against:
+                    p += 1
+                    continue
+                else:
+                    player_pair.append((player, player_2))
+                    player.played_against.append(player_2)
+                    player_2.played_against.append(player)
+                    break
+        return player_pair
 
-        for i in range(len(sorted_players) - 1):
-            match = Match(player_1=sorted_players[i], player_2=sorted_players[i + 1])
-            print()
-            winner = MatchView().get_result(match.player_1, match.player_2)
-            match.update_winner(winner)
-            self.current_round.matches.append(match)
+    def create_matches(self):
+        matches = Match(player_pair=self.create_pairs())
+        winner = MatchView().get_result(matches)
 
-    def update_player_elo(self):  # EN COURS
+    def update_player_elo(self):  # A VALIDER
         searched_player = self.player_view.search_player()
         pre_change = db_player.search(where("player_id") == searched_player)
         print(pre_change)

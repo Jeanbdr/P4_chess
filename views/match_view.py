@@ -1,13 +1,13 @@
 class MatchView:
-    def get_result(winner, player_1, player_2):  # VALIDE
+    def get_result(winner, player_pair):  # VALIDE
         while True:
             try:
                 winner = int(
                     input(
                         f"Vainqueur du match : \n"
                         f"0 Match nul \n"
-                        f"1 {player_1} \n"
-                        f"2 {player_2} \n"
+                        f"1 {player_pair[0]} \n"
+                        f"2 {player_pair[1]} \n"
                         ">>>"
                     )
                 )
@@ -20,11 +20,11 @@ class MatchView:
             else:
                 break
         if winner == 0:
-            print(f"{player_1} et {player_2} ont fait match nul")
+            print(f"{player_pair[0]} et {player_pair[1]} ont fait match nul")
             return None
         elif winner == 1:
-            print(f"{player_1} à gagné")
-            return player_1
+            print(f"{player_pair[0]} à gagné")
+            return player_pair[0]
         elif winner == 2:
-            print(f"{player_2} à gagné")
-            return player_2
+            print(f"{player_pair[1]} à gagné")
+            return player_pair[1]

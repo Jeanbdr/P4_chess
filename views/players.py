@@ -87,25 +87,3 @@ class PlayerView:
             else:
                 break
         return player_id
-
-
-"""
-    def search_player(self, players):
-        # print(players)
-        player_ids = []  # {}
-        text_to_display = f"Selectionner un joueur :\n"
-        for player in players:
-            text_to_display += f"{player} \n"
-            player_ids = player
-        text_to_display += ">>>"
-        while True:
-            try:
-                player_id = int(input(text_to_display))
-            except ValueError:
-                print("Choix non valable, veuillez saisir une des valeurs possibles")
-            if player_id not in player_ids:
-                print("Choix non valable merci de choisir une des valeurs suivantes")
-            else:
-                break
-        return player_ids[player_id]
-"""
