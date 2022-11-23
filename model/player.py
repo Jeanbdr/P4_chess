@@ -21,8 +21,8 @@ class Player:
     def __str__(self):  # VALIDE
         return f"{self.first_name} {self.last_name} id {self.player_id}"
 
-    def serialized_player(self):  # VALIDE
-        return {
+    def save_serialized_player(self, save_tournament_score=False):  # VALIDE
+        serialized_players = {
             "first_name": self.first_name,
             "last_name": self.last_name,
             "birthdate": self.birthdate,
@@ -32,6 +32,9 @@ class Player:
             "score": self.score,
             "total_score": self.total_score,
         }
+        if save_tournament_score:
+            serialized_players["score"] = self.score
+        return serialized_players
 
     def save(self):  # EN COURS
-        return db_player.insert(self.serialized_player())
+        return db_player.insert(self.save_serialized_player())

@@ -18,9 +18,9 @@ class Match:  # VALIDE
 
     def serialized_match(self):
         return {
-            "player_1": self.player_1.serialized_player,
+            "player_1": self.player_1.save_serialized_player,
             "score_player_1": self.score_player_1,
-            "player_2": self.player_2.serialized_player,
+            "player_2": self.player_2.save_serialized_player,
             "score_player_2": self.score_player_2,
             "winner": self.winner,
         }
