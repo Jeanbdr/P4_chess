@@ -4,15 +4,12 @@ from db import db_player
 class Player:
     """Création d'une fiche joueur"""
 
-    def __init__(
-        self, first_name, last_name, birthdate, gender, ranking, player_id, total_score
-    ):
+    def __init__(self, first_name, last_name, birthdate, gender, ranking, total_score):
         self.first_name = first_name
         self.last_name = last_name
         self.birthdate = birthdate
         self.gender = gender
         self.ranking = ranking
-        self.player_id = player_id
         self.score = 0
         self.total_score = total_score
         self.played_against = []
@@ -28,7 +25,6 @@ class Player:
             "birthdate": self.birthdate,
             "gender": self.gender,
             "ranking": self.ranking,
-            "player_id": self.player_id,
             "score": self.score,
             "total_score": self.total_score,
         }

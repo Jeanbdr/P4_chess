@@ -51,13 +51,8 @@ class PlayerView:
                 print("L'elo du joueur n'est pas valide merci de saisir un elo valide ")
             else:
                 break
-        while True:
-            player_id = int(input("Id choisis par le joueur (exemple : 1234): "))
-            already_taken = db_player.contains(Check.player_id == player_id)
-            if already_taken == True:
-                print("L'id est déjà choisis veuillez en choisir un autre")
-            else:
-                break
+
+        print(f"{first_name} {last_name} a été créé")
 
         return {
             "first_name": first_name,
@@ -65,7 +60,6 @@ class PlayerView:
             "birthdate": birthdate,
             "gender": gender,
             "ranking": ranking,
-            "player_id": player_id,
         }
 
     def change_elo(self):
