@@ -1,6 +1,8 @@
 from views.verification import View
-from controler.timestamp import get_timestamp
+from datetime import datetime
 from controler.database import load_db
+
+DATE = datetime.now()
 
 
 class CreateTournament(View):
@@ -48,7 +50,7 @@ class CreateTournament(View):
         return {
             "name": name,
             "place": place,
-            "date": get_timestamp(),
+            "date": DATE,
             "time_control": time_control,
             "nb_players": nb_players,
             "nb_rounds": nb_rounds,
