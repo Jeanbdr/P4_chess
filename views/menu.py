@@ -1,4 +1,4 @@
-from controler.database import save_db, load_tournament, load_db
+from controler.database import save_db, load_tournament
 from controler.player import update_rankings, update_ranking_menu
 from controler.tournament import create_tournament, play_tournament
 
