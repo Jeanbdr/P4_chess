@@ -1,4 +1,4 @@
-from model.tournament import Tournament
+from model.tournament import Tournoi
 from views.verification import View
 from views.tournament import CreateTournament, LoadTournament
 from views.players import LoadPlayer

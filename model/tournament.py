@@ -85,7 +85,7 @@ class Tournoi:
             "date": self.date,
             "time_control": self.time_control,
             "players": [
-                player.get_serialized_player(save_turnament_score=True)
+                player.save_serialized_player(save_turnament_score=True)
                 for player in self.players
             ],
             "nb_rounds": self.nb_rounds,

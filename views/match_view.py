@@ -31,7 +31,7 @@ class MatchView:
 
     selected_player = user_input
     selected_player.ranking = self.ranking
-    serialized_player = self.selected_player.get_serialized_player(
+    serialized_player = self.selected_player.save_serialized_player(
         save_turnament_score=True
     )
     update_player_rank("players", serialized_player)
