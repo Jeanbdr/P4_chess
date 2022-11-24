@@ -28,3 +28,13 @@ class MatchView:
         elif winner == 2:
             print(f"{player_pair[1]} à gagné")
             return player_pair[1]
+
+    selected_player = user_input
+    selected_player.ranking = self.ranking
+    serialized_player = self.selected_player.get_serialized_player(
+        save_turnament_score=True
+    )
+    update_player_rank("players", serialized_player)
+    print(
+        f"Update du rang de {player}:\nScore total: {player.total_score}\nRang: {player.ranking}"
+    )
