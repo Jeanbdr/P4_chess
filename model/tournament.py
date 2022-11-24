@@ -10,28 +10,18 @@ PARTICIPANTS = 4
 class Tournoi:
     """Classe permettant la création d'un tournoi"""
 
-    def __init__(  # VALIDE
-        self,
-        name,
-        place,
-        time_control,
-        participants,
-        today=TODAY,
-        round_number=ROUND_NUMBERS,
-        description="",
-    ):
+    def __init__(self, name, place, date, time_control, players, nb_rounds=4, desc=""):
         self.name = name
         self.place = place
+        self.date = date
         self.time_control = time_control
-        self.participants = participants
-        self.today = today
-        self.round_number = round_number
-        self.description = description
+        self.players = players
+        self.nb_rounds = nb_rounds
         self.rounds = []
-        self.save()
+        self.desc = desc
 
     def __str__(self):  # VALIDE
-        return f"{self.name} se jouant à {self.place} le {self.today}"
+        return f"Tournoi : {self.name}"
 
     def create_round(self, round_number):
         players_pairs = self.create_players_pairs(current_round=round_number)
@@ -40,13 +30,11 @@ class Tournoi:
 
     def create_pairs(self, current_round):
         if current_round == 0:
-            sorted_players = sorted(
-                self.participants, key=lambda player: player.ranking, reverse=True
-            )
+            sorted_players = sorted(self.players, key=lambda x: x.ranking, reverse=True)
         else:
             sorted_players = []
             score_sorted = sorted(
-                self.participants, key=lambda player: player.total_score, reverse=True
+                self.players, key=lambda x: x.total_score, reverse=True
             )
             for i, player in enumerate(score_sorted):
                 try:
@@ -86,36 +74,35 @@ class Tournoi:
                     break
         return player_pair
 
-    def tournament_result(self, by_score=True):
+    def get_rankings(self, by_score=True):
+
+        # Par défaut, on retourne le classement du tournoi par rapport aux points marqués par
+        # chaque joueurs
         if by_score:
-            sorted_player = sorted(
-                self.participants, key=lambda player: player.score, reverse=True
+            sorted_players = sorted(
+                self.players, key=lambda x: x.tournament_score, reverse=True
             )
         else:
-            sorted_player = sorted(
-                self.participants, key=lambda player: player.ranking, reverse=True
-            )
-        return sorted_player
+            sorted_players = sorted(self.players, key=lambda x: x.ranking, reverse=True)
+
+        return sorted_players
 
     def save_serialized_tournament(self, save_rounds=False):  # VALIDE
         serialized_tournament = {
             "name": self.name,
             "place": self.place,
-            "time control": self.time_control,
-            "participants": [
-                player.save_serialized_player(save_tournament_score=True)
-                for player in self.participants
+            "date": self.date,
+            "time_control": self.time_control,
+            "players": [
+                player.get_serialized_player(save_turnament_score=True)
+                for player in self.players
             ],
-            "today": self.today,
-            "round number": self.round_number,
-            "descriptions": self.description,
-            "rounds": [round.serialized_round() for round in self.rounds],
+            "nb_rounds": self.nb_rounds,
+            "rounds": [round.get_serialized_round() for round in self.rounds],
+            "desc": self.desc,
         }
         if save_rounds:
             serialized_tournament["rounds"] = [
                 round.serialized_round() for round in self.rounds
             ]
         return serialized_tournament
-
-    def save(self):  # EN COURS
-        db_tournament.insert(self.save_serialized_tournament())
