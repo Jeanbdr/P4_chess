@@ -14,7 +14,6 @@ class Match:
         return ([self.player1, self.score_player1], [self.player2, self.score_player2])
 
     def play_match(self):
-        # Match joué, on rentre les scores
         print()
         winner = View().get_user_entry(
             msg_display=f"{self.player1.first_name} {self.player1.name} opposé à"

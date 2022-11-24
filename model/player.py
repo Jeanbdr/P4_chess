@@ -11,10 +11,10 @@ class Player:
         self.ranking = ranking
         self.played_with = []
 
-    def __str__(self):  # VALIDE
+    def __str__(self):
         return f"{self.first_name} {self.name} [{self.tournament_score} pts]"
 
-    def save_serialized_player(self, save_tournament_score=False):  # VALIDE
+    def save_serialized_player(self, save_tournament_score=False):
         serialized_players = {
             "first_name": self.first_name,
             "name": self.name,

@@ -1,5 +1,4 @@
-from pathlib import Path
-from tinydb import TinyDB, Query
+from tinydb import TinyDB
 from tinydb import where
 from model.player import Player
 from model.tournament import Tournoi
@@ -8,14 +7,7 @@ from model.match import Match
 
 
 def save_db(db_name, serialized_data):
-    # Path("data/").mkdir(exist_ok=True)
-    # try:
     db = TinyDB(f"data/{db_name}.json")
-    # except FileNotFoundError:
-    # with open(f"data/{db_name}.json", "w"):
-    # pass
-    # db = TinyDB("data/" + db_name + ".json")
-
     db.insert(serialized_data)
     print(f"{serialized_data['name']} sauvegardé avec succès ")
 
@@ -71,15 +63,11 @@ def load_tournament(serialized_tournament):
         serialized_tournament["desc"],
     )
     loaded_tournament.rounds = load_rounds(serialized_tournament, loaded_tournament)
-
     return loaded_tournament
 
 
 def load_rounds(serialized_tournament, tournament):
-
     loaded_rounds = []
-
-    # Re-création des pairs avec les instances joueurs créées lors du chargement du tournoi
     for round in serialized_tournament["rounds"]:
         players_pairs = []
         for pair in round["players_pairs"]:
@@ -96,13 +84,11 @@ def load_rounds(serialized_tournament, tournament):
         loaded_round.start_date = round["start_date"]
         loaded_round.end_date = round["end_date"]
         loaded_rounds.append(loaded_round)
-
     return loaded_rounds
 
 
 def load_match(serialized_match, tournament):
-
-    # Re-création des matchs avec les instances joueurs créées lors du chargement du tournoi
+    # Reprise du tournoi en son état précedent
     for player in tournament.players:
         if player.name == serialized_match["player1"]["name"]:
             player1 = player
@@ -113,5 +99,4 @@ def load_match(serialized_match, tournament):
     loaded_match.score_player1 = serialized_match["score_player1"]
     loaded_match.score_player2 = serialized_match["score_player2"]
     loaded_match.winner = serialized_match["winner"]
-
     return loaded_match

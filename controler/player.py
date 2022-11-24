@@ -5,8 +5,7 @@ from views.verification import View
 
 
 def create_player():
-
-    # Récupération des infos du joueur
+    # Récupération et sauvegarge des infos du joueur
     user_entries = CreatePlayer().display_menu()
     player = Player(
         user_entries["first_name"],
@@ -16,12 +15,8 @@ def create_player():
         user_entries["total_score"],
         user_entries["ranking"],
     )
-
-    # serialization et sauvegarde du joueur:
     serialized_player = player.save_serialized_player()
-    # print(serialized_player)
     save_db("players", serialized_player)
-
     return player
 
 
@@ -30,7 +25,6 @@ def update_rankings(player, ranking, score=True):
         player.total_score += player.tournament_score
     player.ranking = ranking
     serialized_player = player.save_serialized_player(save_tournament_score=True)
-    # print(serialized_player['name'])
     update_player_rank("players", serialized_player)
     print(
         f"Update du rang de {player}:\nScore total: {player.total_score}\nRang: {player.ranking}"

@@ -78,7 +78,7 @@ class Tournoi:
 
         return sorted_players
 
-    def save_serialized_tournament(self, save_rounds=False):  # VALIDE
+    def save_serialized_tournament(self, save_rounds=False):
         serialized_tournament = {
             "name": self.name,
             "place": self.place,

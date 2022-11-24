@@ -58,15 +58,13 @@ def create_tournament():
 
 
 def play_tournament(tournament, new_tournament_loaded=False):
-
+    # Fonction permettant de jouer les rounds contenant des matchs
     menu = View()
     print()
     print(f"Début du tournoi {tournament.name}")
     print()
 
     while True:
-
-        # Si nouveau tournoi chargé: Calcul des rounds restants à jouer
         a = 0
         if new_tournament_loaded:
             for round in tournament.rounds:
@@ -78,16 +76,10 @@ def play_tournament(tournament, new_tournament_loaded=False):
             nb_rounds_to_play = tournament.nb_rounds
 
         for i in range(nb_rounds_to_play):
-
-            # Création du round
             tournament.create_round(round_number=i + a)
-
-            # On joue le dernier round créé
             current_round = tournament.rounds[-1]
             print()
             print(current_round.start_date + " : Début du " + current_round.name)
-
-            # Round terminé, on passe au round suivant, on peux aussi mettre à jour les classements manuellement
             while True:
                 print()
                 user_input = menu.get_user_entry(
@@ -101,19 +93,13 @@ def play_tournament(tournament, new_tournament_loaded=False):
                     assertions=["0", "1", "2", "3", "4"],
                 )
                 print()
-
-                # Round suivant
                 if user_input == "0":
                     current_round.mark_done()
                     break
-
-                # Affichage des classements
                 elif user_input == "1":
                     print(f"Classement du tournoi {tournament.name}\n:")
                     for i, player in enumerate(tournament.get_rankings()):
                         print(f"{str(i + 1)} - {player}")
-
-                # Changement des rangs
                 elif user_input == "2":
                     for player in tournament.players:
                         rank = menu.get_user_entry(
@@ -122,8 +108,6 @@ def play_tournament(tournament, new_tournament_loaded=False):
                             value_type="numeric",
                         )
                         update_rankings(player, rank, score=False)
-
-                # Sauvegarder le tournoi
                 elif user_input == "3":
                     rankings = tournament.get_rankings()
                     for i, player in enumerate(rankings):
@@ -134,8 +118,6 @@ def play_tournament(tournament, new_tournament_loaded=False):
                         "tournaments",
                         tournament.save_serialized_tournament(save_rounds=True),
                     )
-
-                # Charger un tournoi
                 elif user_input == "4":
                     serialized_loaded_tournament = LoadTournament().display_menu()
                     tournament = load_tournament(serialized_loaded_tournament)
@@ -151,7 +133,7 @@ def play_tournament(tournament, new_tournament_loaded=False):
         else:
             break
 
-    # Une fois le tournoi terminé, on le save dans la bdd puis on retourne les résultats
+    # sauvegarde du tournoi et on retourne les résultats
     rankings = tournament.get_rankings()
     for i, player in enumerate(rankings):
         for t_player in tournament.players:
