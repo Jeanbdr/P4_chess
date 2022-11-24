@@ -1,11 +1,11 @@
-from controller.database import save_db, load_tournament, load_db
-from controller.player import update_rankings, update_ranking_menu
-from controller.tournament import create_tournament, play_tournament
+from controler.database import save_db, load_tournament, load_db
+from controler.player import update_rankings, update_ranking_menu
+from controler.tournament import create_tournament, play_tournament
 
-from views.player import CreatePlayer
+from views.players import CreatePlayer
 from views.report import Report
 from views.tournament import LoadTournament
-from views.view import View
+from views.verification import View
 
 
 class MainMenu(View):
