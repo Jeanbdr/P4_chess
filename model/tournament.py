@@ -118,4 +118,4 @@ class Tournoi:
         return serialized_tournament
 
     def save(self):  # EN COURS
-        db_tournament.insert(self.serialized_tournament())
+        db_tournament.insert(self.save_serialized_tournament())

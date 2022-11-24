@@ -89,9 +89,19 @@ class PlayerView:
     def search_player(self):
         while True:
             try:
-                player_id = int(input("ID du joueur recherhché \n >>>"))
+                player_id = int(input("ID du joueur recherché \n >>>"))
             except ValueError:
                 print("ID non valable merci de saisir un ID existant")
             else:
                 break
         return player_id
+
+
+"""
+class LoadPlayer:
+
+    def display_menu(self, nb_player):
+        all_players = load_db("players")
+        ser_loaded_player = []
+        for i in range(nb_player):
+"""
