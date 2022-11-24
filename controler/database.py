@@ -2,7 +2,7 @@ from pathlib import Path
 from tinydb import TinyDB, Query
 from tinydb import where
 from model.player import Player
-from model.tournament import Tournament
+from model.tournament import Tournoi
 from model.round import Round
 from model.match import Match
 
@@ -58,7 +58,7 @@ def load_player(serialized_player, load_tournament_score=False):
 
 
 def load_tournament(serialized_tournament):
-    loaded_tournament = Tournament(
+    loaded_tournament = Tournoi(
         serialized_tournament["name"],
         serialized_tournament["place"],
         serialized_tournament["date"],
