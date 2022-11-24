@@ -1,4 +1,4 @@
-from tinydb import TinyDB
+from tinydb import TinyDB, Query, where
 from tinydb import where
 from model.player import Player
 from model.tournament import Tournoi
@@ -100,3 +100,11 @@ def load_match(serialized_match, tournament):
     loaded_match.score_player2 = serialized_match["score_player2"]
     loaded_match.winner = serialized_match["winner"]
     return loaded_match
+
+
+def search_player(db_name, player_firstname, player_name, new_ranking):
+    db = TinyDB(f"data/{db_name}.json")
+    db.update(
+        {"ranking": new_ranking},
+        (where("first_name") == player_firstname) & (where("name") == player_name),
+    )

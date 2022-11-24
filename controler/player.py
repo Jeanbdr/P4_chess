@@ -1,4 +1,4 @@
-from controler.database import save_db, update_player_rank, load_db
+from controler.database import save_db, update_player_rank, load_db, search_player
 from model.player import Player
 from views.players import CreatePlayer
 from views.verification import View
@@ -34,20 +34,15 @@ def update_rankings(player, ranking, score=True):
 def update_ranking_menu():
     all_player = load_db("players")
     display_msg = "Choisir un joueur à update:\n"
-    assertions = []
     for player in all_player:
-        display_msg = (
-            display_msg + f"{str(+1)} - {player['first_name']} {player['name']}\n"
-        )
-        assertions.append(str(+1))
-
-    user_input = int(
-        View().get_user_entry(
-            msg_display=display_msg,
-            msg_error="Veuillez entrer un choix parmis ceux de la liste",
-            value_type="selection",
-            assertions=assertions,
-        )
+        display_msg = display_msg + f"{player['first_name']} {player['name']}\n"
+        print(display_msg)
+        player_firstname = input("Prénom du joueur choisis: ")
+        player_name = input("Nom du joueur choisis: ")
+        new_ranking = int(input("Nouveau ranking du joueur: "))
+    search_player(
+        db_name="players",
+        player_firstname=player_firstname,
+        player_name=player_name,
+        new_ranking=new_ranking,
     )
-    print(assertions)
-    update_rankings(player, user_input, score=False)
