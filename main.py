@@ -1,4 +1,3 @@
-from controler.controler import Controler
 from views.menu import MainMenu
 
 
