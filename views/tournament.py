@@ -8,9 +8,6 @@ DATE = datetime.now()
 class CreateTournament(View):
     def display_menu(self):
 
-        # date = get_timestamp()
-        # print(date + " : Nouveau tournoi")
-
         name = input("Nom du tournoi: ")
 
         place = self.get_user_entry(

@@ -69,9 +69,6 @@ class Tournoi:
         return player_pair
 
     def get_rankings(self, by_score=True):
-
-        # Par défaut, on retourne le classement du tournoi par rapport aux points marqués par
-        # chaque joueurs
         if by_score:
             sorted_players = sorted(
                 self.players, key=lambda x: x.tournament_score, reverse=True
