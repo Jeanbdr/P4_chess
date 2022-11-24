@@ -41,7 +41,7 @@ def create_tournament():
             players.append(create_player())
 
     # Creation du tournoi
-    tournament = Tournament(
+    tournament = Tournoi(
         user_entries["name"],
         user_entries["place"],
         user_entries["date"],
@@ -52,7 +52,7 @@ def create_tournament():
     )
 
     # Save du tournoi dans la bdd
-    save_db("tournaments", tournament.get_serialized_tournament())
+    save_db("tournaments", tournament.save_serialized_tournament())
 
     return tournament
 
@@ -132,7 +132,7 @@ def play_tournament(tournament, new_tournament_loaded=False):
                                 t_player.ranking = str(i + 1)
                     update_db(
                         "tournaments",
-                        tournament.get_serialized_tournament(save_rounds=True),
+                        tournament.save_serialized_tournament(save_rounds=True),
                     )
 
                 # Charger un tournoi
@@ -158,5 +158,5 @@ def play_tournament(tournament, new_tournament_loaded=False):
             if player.name == t_player.name:
                 t_player.total_score += player.tournament_score
                 t_player.ranking = str(i + 1)
-    update_db("tournaments", tournament.get_serialized_tournament(save_rounds=True))
+    update_db("tournaments", tournament.save_serialized_tournament(save_rounds=True))
     return rankings
