@@ -1,6 +1,6 @@
-from views.view import View
-from controller.timestamp import get_timestamp
-from controller.database import load_db
+from views.verification import View
+from controler.timestamp import get_timestamp
+from controler.database import load_db
 
 
 class CreateTournament(View):
