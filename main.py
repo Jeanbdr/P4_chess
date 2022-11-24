@@ -3,7 +3,7 @@ from views.menu import MainMenu
 
 
 def run():
-    MainMenu().input_menu()
+    MainMenu().display_main_menu()
 
 
 if __name__ == "__main__":
