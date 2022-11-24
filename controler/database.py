@@ -88,7 +88,6 @@ def load_rounds(serialized_tournament, tournament):
 
 
 def load_match(serialized_match, tournament):
-    # Reprise du tournoi en son état précedent
     for player in tournament.players:
         if player.name == serialized_match["player1"]["name"]:
             player1 = player

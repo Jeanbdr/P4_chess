@@ -26,12 +26,10 @@ class MainMenu(View):
                 assertions=["0", "1", "2", "3", "4", "q"],
             )
 
-            # Creer un tournoi
             if user_input == "0":
                 tournament = create_tournament()
                 break
 
-            # Charger un tournoi
             elif user_input == "1":
                 serialized_tournament = LoadTournament().display_menu()
                 if serialized_tournament:
@@ -41,7 +39,6 @@ class MainMenu(View):
                     print("Aucun tournoi sauvegardé !")
                     continue
 
-            # Creer des joueurs
             elif user_input == "2":
                 user_input = self.get_user_entry(
                     msg_display="Nombre de joueurs à créer:\n> ",
@@ -52,7 +49,6 @@ class MainMenu(View):
                     serialized_new_player = CreatePlayer().display_menu()
                     save_db("players", serialized_new_player)
 
-            # Voir les rapports
             elif user_input == "3":
                 while True:
                     user_input = self.get_user_entry(
@@ -97,7 +93,6 @@ class MainMenu(View):
             else:
                 quit()
 
-        # on joue le tournoi
         print()
         user_input = self.get_user_entry(
             msg_display="0 - Jouer le tournoi\n" "q - Quitter\n> ",
@@ -106,19 +101,18 @@ class MainMenu(View):
             assertions=["0", "q"],
         )
 
-        # on récupère les résultats une fois le tournoi terminé
         if user_input == "0":
             rankings = play_tournament(tournament, new_tournament_loaded=True)
         else:
             quit()
 
-        # on affiche les résultats
+        # Print final result
         print()
         print(f"Tournoi {tournament.name} terminé !\nRésultats:")
         for i, player in enumerate(rankings):
             print(f"{str(i + 1)} - {player}")
 
-        # on met à jour les classements
+        # Update player's ranking
         print()
         user_input = self.get_user_entry(
             msg_display="Mise à jour des classements\n"

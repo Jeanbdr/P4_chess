@@ -20,7 +20,7 @@ def create_tournament():
         assertions=["0", "1"],
     )
 
-    # Chargement des joueurs
+    # Load and creation of players
     if user_input == "1":
         players = []
         user_input = menu.get_user_entry(
@@ -33,14 +33,13 @@ def create_tournament():
             player = load_player(serialized_player)
             players.append(player)
 
-    # Creation des joueurs
     else:
         print(f"Création de {str(user_entries['nb_players'])} joueurs.")
         players = []
         while len(players) < user_entries["nb_players"]:
             players.append(create_player())
 
-    # Creation du tournoi
+    # Creation and save of tournament
     tournament = Tournoi(
         user_entries["name"],
         user_entries["place"],
@@ -51,20 +50,19 @@ def create_tournament():
         user_entries["desc"],
     )
 
-    # Save du tournoi dans la bdd
     save_db("tournaments", tournament.save_serialized_tournament())
 
     return tournament
 
 
 def play_tournament(tournament, new_tournament_loaded=False):
-    # Fonction permettant de jouer les rounds contenant des matchs
     menu = View()
     print()
     print(f"Début du tournoi {tournament.name}")
     print()
 
     while True:
+        # Number of round to play if tournament has been loaded
         a = 0
         if new_tournament_loaded:
             for round in tournament.rounds:
