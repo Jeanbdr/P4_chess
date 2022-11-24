@@ -1,10 +1,14 @@
 from model.round import Round
 
+ROUND_NUMBERS = 4
+
 
 class Tournoi:
     """Classe permettant la création d'un tournoi"""
 
-    def __init__(self, name, place, date, time_control, players, nb_rounds=4, desc=""):
+    def __init__(
+        self, name, place, date, time_control, players, nb_rounds=ROUND_NUMBERS, desc=""
+    ):
         self.name = name
         self.place = place
         self.date = date
@@ -14,7 +18,7 @@ class Tournoi:
         self.rounds = []
         self.desc = desc
 
-    def __str__(self):  # VALIDE
+    def __str__(self):
         return f"Tournoi : {self.name}"
 
     def create_round(self, round_number):
