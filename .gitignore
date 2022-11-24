@@ -1,3 +1,12 @@
-*.json
+# Divers
 .DS_Store
+# Propre au projet
 __pycache__/
+/data
+*.json
+
+#Env
+.env
+.venv
+env/
+venv/
