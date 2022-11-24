@@ -1,5 +1,5 @@
-from controller.database import load_db
-from views.view import View
+from controler.database import load_db
+from views.verification import View
 from operator import itemgetter
 
 
