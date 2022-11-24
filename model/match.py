@@ -16,12 +16,12 @@ class Match:
     def play_match(self):
         print()
         winner = View().get_user_entry(
-            msg_display=f"{self.player1.first_name} {self.player1.name} opposé à"
+            msg_display=f"{self.player1.first_name} {self.player1.name} opposé à "
             + f"{self.player2.first_name} {self.player2.name}\n"
             f"Gagnant ?\n"
             f"0 - {self.player1.first_name} {self.player1.name} \n"
-            f"1 - {self.player2.first_name} {self.player2.name}\n"
-            f"2 - Égalité\n>>> ",
+            f"1 - {self.player2.first_name} {self.player2.name} \n"
+            f"2 - Égalité\n >>> ",
             msg_error="Veuillez entrer 0, 1 ou 2.",
             value_type="selection",
             assertions=["0", "1", "2"],
