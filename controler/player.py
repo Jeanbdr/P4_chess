@@ -1,7 +1,7 @@
-from controller.database import save_db, update_player_rank, load_db
-from models.player import Player
-from views.player import CreatePlayer
-from views.view import View
+from controler.database import save_db, update_player_rank, load_db
+from model.player import Player
+from views.players import CreatePlayer
+from views.verification import View
 
 
 def create_player():
