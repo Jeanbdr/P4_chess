@@ -1,6 +1,3 @@
-from db import db_player
-
-
 class Player:
     """Création d'une fiche joueur"""
 
