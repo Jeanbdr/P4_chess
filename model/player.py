@@ -4,37 +4,28 @@ from db import db_player
 class Player:
     """Création d'une fiche joueur"""
 
-    def __init__(
-        self, first_name, last_name, birthdate, gender, ranking, player_id, total_score
-    ):
+    def __init__(self, first_name, name, birthdate, gender, total_score, ranking=0):
         self.first_name = first_name
-        self.last_name = last_name
+        self.name = name
         self.birthdate = birthdate
         self.gender = gender
-        self.ranking = ranking
-        self.player_id = player_id
         self.total_score = total_score
-        self.score = 0
-        self.played_against = []
-        self._id = self.save()
+        self.tournament_score = 0
+        self.ranking = ranking
+        self.played_with = []
 
     def __str__(self):  # VALIDE
-        return f"{self.first_name} {self.last_name} id {self.player_id}"
+        return f"{self.first_name} {self.name} [{self.tournament_score} pts]"
 
-    def save_serialized_player(self, save_tournament_score=False):  # VALIDE
+    def save_serialized_player(self, save_turnament_score=False):  # VALIDE
         serialized_players = {
             "first_name": self.first_name,
-            "last_name": self.last_name,
+            "name": self.name,
             "birthdate": self.birthdate,
             "gender": self.gender,
-            "ranking": self.ranking,
-            "player_id": self.player_id,
             "total_score": self.total_score,
-            "score": self.score,
+            "ranking": self.ranking,
         }
-        if save_tournament_score:
-            serialized_players["score"] = self.score
+        if save_turnament_score:
+            serialized_players["tournament_score"] = self.tournament_score
         return serialized_players
-
-    def save(self):  # EN COURS
-        return db_player.insert(self.save_serialized_player())
