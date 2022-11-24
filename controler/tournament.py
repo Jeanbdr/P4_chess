@@ -1,7 +1,7 @@
-from models.tournament import Tournament
-from views.view import View
+from model.tournament import Tournament
+from views.verification import View
 from views.tournament import CreateTournament, LoadTournament
-from views.player import LoadPlayer
+from views.players import LoadPlayer
 from controller.player import create_player, update_rankings
 from controller.database import save_db, update_db, load_player, load_tournament
 
