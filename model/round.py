@@ -19,7 +19,7 @@ class Round:
     def create_matchs(self):
         matchs = []
         for i, pair in enumerate(self.player_pairs):
-            matchs.append(Match(name=f"Match {i}", player_pair=pair))
+            matchs.append(Match(name=f"Match {i}", players_pair=pair))
         return matchs
 
     def mark_done(self):

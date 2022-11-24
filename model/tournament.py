@@ -18,7 +18,7 @@ class Tournoi:
         return f"Tournoi : {self.name}"
 
     def create_round(self, round_number):
-        players_pairs = self.create_players_pairs(current_round=round_number)
+        players_pairs = self.create_pairs(current_round=round_number)
         round = Round("Round" + str(round_number + 1), players_pairs)
         self.rounds.append(round)
 
@@ -55,16 +55,16 @@ class Tournoi:
                 except IndexError:
                     player_2 = bottom_half[i]
                     player_pair.append((player, player_2))
-                    player.played_against.append(player_2)
-                    player_2.played_against.append(player)
+                    player.played_with.append(player_2)
+                    player_2.played_with.append(player)
                     break
-                if player in player_2.played_against:
+                if player in player_2.played_with:
                     x += 1
                     continue
                 else:
                     player_pair.append((player, player_2))
-                    player.played_against.append(player_2)
-                    player_2.played_against.append(player)
+                    player.played_with.append(player_2)
+                    player_2.played_with.append(player)
                     break
         return player_pair
 
@@ -85,7 +85,7 @@ class Tournoi:
             "date": self.date,
             "time_control": self.time_control,
             "players": [
-                player.save_serialized_player(save_turnament_score=True)
+                player.save_serialized_player(save_tournament_score=True)
                 for player in self.players
             ],
             "nb_rounds": self.nb_rounds,

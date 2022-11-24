@@ -44,9 +44,9 @@ class Match:
 
     def get_serialized_match(self):
         return {
-            "player1": self.player1.save_serialized_player(save_turnament_score=True),
+            "player1": self.player1.save_serialized_player(save_tournament_score=True),
             "score_player1": self.score_player1,
-            "player2": self.player2.save_serialized_player(save_turnament_score=True),
+            "player2": self.player2.save_serialized_player(save_tournament_score=True),
             "score_player2": self.score_player2,
             "winner": self.winner,
             "name": self.name,
