@@ -1,26 +1,54 @@
-class Match:  # VALIDE
-    """Class permettant la création d'un match"""
+import random
+from views.view import View
 
-    def __init__(self, player_pair):
-        self.player_1 = player_pair[0]
-        self.player_2 = player_pair[1]
-        self.score_player_1 = 0
-        self.score_player_2 = 0
-        self.winner = None
 
-    def update_winner(self, winner):
-        self.winner = winner
-        if winner:
-            winner.score += 1
-        else:
-            self.player_1.score += 0.5
-            self.player_2.score += 0.5
+class Match:
+    def __init__(self, name, players_pair):
+        self.player1 = players_pair[0]
+        self.score_player1 = 0
+        self.player2 = players_pair[1]
+        self.score_player2 = 0
+        self.winner = ""
+        self.name = name
 
-    def serialized_match(self):
+    def __repr__(self):
+        return ([self.player1, self.score_player1], [self.player2, self.score_player2])
+
+    def play_match(self):
+        # Match joué, on rentre les scores
+        print()
+        winner = View().get_user_entry(
+            msg_display=f"{self.player1.first_name} {self.player1.name} opposé à"
+            + f"{self.player2.first_name} {self.player2.name}\n"
+            f"Gagnant ?\n"
+            f"0 - {self.player1.first_name} {self.player1.name} \n"
+            f"1 - {self.player2.first_name} {self.player2.name}\n"
+            f"2 - Égalité\n>>> ",
+            msg_error="Veuillez entrer 0, 1 ou 2.",
+            value_type="selection",
+            assertions=["0", "1", "2"],
+        )
+
+        if winner == "0":
+            self.winner = self.player1.first_name
+            self.score_player1 += 1
+        elif winner == "1":
+            self.winner = self.player2.first_name
+            self.score_player2 += 1
+        elif winner == "2":
+            self.winner = "Égalité"
+            self.score_player1 += 0.5
+            self.score_player2 += 0.5
+
+        self.player1.tournament_score += self.score_player1
+        self.player2.tournament_score += self.score_player2
+
+    def get_serialized_match(self):
         return {
-            "player_1": self.player_1.save_serialized_player,
-            "score_player_1": self.score_player_1,
-            "player_2": self.player_2.save_serialized_player,
-            "score_player_2": self.score_player_2,
+            "player1": self.player1.get_serialized_player(save_turnament_score=True),
+            "score_player1": self.score_player1,
+            "player2": self.player2.get_serialized_player(save_turnament_score=True),
+            "score_player2": self.score_player2,
             "winner": self.winner,
+            "name": self.name,
         }
