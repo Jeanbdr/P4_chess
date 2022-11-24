@@ -104,7 +104,7 @@ def play_tournament(tournament, new_tournament_loaded=False):
 
                 # Round suivant
                 if user_input == "0":
-                    current_round.mark_as_complete()
+                    current_round.mark_done()
                     break
 
                 # Affichage des classements

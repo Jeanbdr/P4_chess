@@ -3,8 +3,8 @@ from model.match import Match
 
 
 class Round:
-    def __init__(self, round_name, player_pairs, load_match: False):
-        self.round_name = round_name
+    def __init__(self, name, player_pairs, load_match: bool = False):
+        self.name = name
         self.player_pairs = player_pairs
         if load_match:
             self.matchs = []
@@ -14,7 +14,7 @@ class Round:
         self.end_date = ""
 
     def __str__(self):
-        return self.round_name
+        return self.name
 
     def create_matchs(self):
         matchs = []
@@ -29,16 +29,16 @@ class Round:
         for match in self.matchs:
             match.play_match()
 
-    def serialized_round(self):
-        serialized_pair = []
+    def get_serialized_round(self):
+        ser_players_pair = []
         for pair in self.player_pairs:
-            serialized_pair.append(
+            ser_players_pair.append(
                 pair[0].save_serialized_player(save_tournament_score=True),
                 pair[1].save_serialized_player(save_tournament_score=True),
             )
         return {
-            "name": self.round_name,
-            "players_pairs": serialized_pair,
+            "name": self.name,
+            "players_pairs": ser_players_pair,
             "matchs": [match.save_serialized_player() for match in self.matchs],
             "start_date": self.start_date,
             "end_date": self.end_date,
