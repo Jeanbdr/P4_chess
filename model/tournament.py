@@ -1,10 +1,4 @@
-from datetime import date
-from db import db_tournament
 from model.round import Round
-
-TODAY = date.today().strftime("%d/%m/%y")
-ROUND_NUMBERS = 2
-PARTICIPANTS = 4
 
 
 class Tournoi:
