@@ -94,6 +94,6 @@ class Tournoi:
         }
         if save_rounds:
             serialized_tournament["rounds"] = [
-                round.serialized_round() for round in self.rounds
+                round.get_serialized_round() for round in self.rounds
             ]
         return serialized_tournament

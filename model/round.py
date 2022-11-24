@@ -33,13 +33,15 @@ class Round:
         ser_players_pair = []
         for pair in self.player_pairs:
             ser_players_pair.append(
-                pair[0].save_serialized_player(save_tournament_score=True),
-                pair[1].save_serialized_player(save_tournament_score=True),
+                (
+                    pair[0].save_serialized_player(save_tournament_score=True),
+                    pair[1].save_serialized_player(save_tournament_score=True),
+                )
             )
         return {
             "name": self.name,
             "players_pairs": ser_players_pair,
-            "matchs": [match.save_serialized_player() for match in self.matchs],
+            "matchs": [match.get_serialized_match() for match in self.matchs],
             "start_date": self.start_date,
             "end_date": self.end_date,
         }
