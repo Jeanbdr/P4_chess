@@ -1,10 +1,10 @@
 from pathlib import Path
 from tinydb import TinyDB, Query
 from tinydb import where
-from models.player import Player
-from models.tournament import Tournament
-from models.round import Round
-from models.match import Match
+from model.player import Player
+from model.tournament import Tournament
+from model.round import Round
+from model.match import Match
 
 
 def save_db(db_name, serialized_data):
