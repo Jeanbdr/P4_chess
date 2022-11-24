@@ -1,5 +1,4 @@
-import random
-from views.view import View
+from views.verification import View
 
 
 class Match:
