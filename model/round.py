@@ -1,5 +1,5 @@
-from datetime import datetime
 from model.match import Match
+from utilitairs.timestamp import get_date
 
 
 class Round:
@@ -10,7 +10,7 @@ class Round:
             self.matchs = []
         else:
             self.matchs = self.create_matchs()
-        self.start_date = datetime.now()
+        self.start_date = get_date()
         self.end_date = ""
 
     def __str__(self):
@@ -23,7 +23,7 @@ class Round:
         return matchs
 
     def mark_done(self):
-        self.end_date = datetime.now()
+        self.end_date = get_date()
         print(f"Round {self.name} terminé {self.end_date}")
         print("Saisir résultats des matchs:")
         for match in self.matchs:
