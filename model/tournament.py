@@ -38,6 +38,7 @@ class Tournoi:
                 try:
                     sorted_players.append(player)
                 except player.total_score == score_sorted[i + 1].total_score:
+                    print("kehbvefkhvebfvkeb")
                     if player.ranking > score_sorted[i + 1].ranking:
                         best_player = player
                         worst_player = score_sorted[i + 1]
@@ -46,11 +47,13 @@ class Tournoi:
                         worst_player = player
                     sorted_players.append(best_player)
                     sorted_players.append(worst_player)
-        top_half = sorted_players[len(sorted_players) // 2 :]
-        bottom_half = sorted_players[: len(sorted_players) // 2]
+        top_half = sorted_players[: len(sorted_players) // 2]
+        bottom_half = sorted_players[len(sorted_players) // 2 :]
 
         player_pair = []
+        import pdb
 
+        pdb.set_trace()
         for i, player in enumerate(top_half):
             x = 0
             while True:

@@ -101,7 +101,7 @@ def load_match(serialized_match, tournament):
     return loaded_match
 
 
-def search_player(db_name, player_firstname, player_name, new_ranking):
+def update_player(db_name, player_firstname, player_name, new_ranking):
     db = TinyDB(f"data/{db_name}.json")
     db.update(
         {"ranking": new_ranking},

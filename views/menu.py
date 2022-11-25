@@ -87,6 +87,7 @@ class MainMenu(View):
 
                     elif user_input == "1":
                         Report().display_tournaments_reports()
+
             elif user_input == "4":
                 update_ranking_menu()
 
