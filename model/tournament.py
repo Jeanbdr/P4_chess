@@ -29,6 +29,7 @@ class Tournoi:
     def create_pairs(self, current_round):
         player_pair = []
         already_play = []
+        pairs = []
         if current_round == 0:
             sorted_players = sorted(self.players, key=lambda x: x.ranking, reverse=True)
             top_half = sorted_players[: len(sorted_players) // 2]
@@ -52,30 +53,30 @@ class Tournoi:
                         # player.played_with.append(player_2)
                         # player_2.played_with.append(player)
                         break
+            print(player_pair)
             return player_pair
         else:
             print("on est dans le else")
             sorted_players = sorted(
                 self.players, key=lambda x: x.tournament_score, reverse=True
             )
-            ranking_list = sorted_players[: len(sorted_players)]
-            x = 0
-            for i, player in enumerate(ranking_list):
-                x += 1
-                already_play.append(player)
-                while True:
-                    try:
-                        player_2 = ranking_list[i + x]
-                        already_play.append(player_2)
-                    except IndexError:
-                        player_2 = ranking_list[i]
-                        break
-                    else:
-                        player_pair.append((player, player_2))
-                        break
-                if (player, player_2) in already_play:
-                    pass
-            return player_pair
+            for i in range(len(sorted_players)):
+                player = sorted_players[i]
+                player_2 = sorted_players[i + 1]
+                for (player, player_2) in already_play:
+                    player = sorted_players[i]
+                    player_2 = sorted_players[i + 1]
+                    already_play.append(player)
+                    already_play.append(player_2)
+                else:
+                    already_play.append(player)
+                    already_play.append(player_2)
+                print(f"player1 {player}")
+                print(f"player2 {player_2}")
+                print(len(already_play))
+                pairs.append((player, player_2))
+                print(already_play)
+                print(pairs)
 
     def get_rankings(self, by_score=True):
         if by_score:

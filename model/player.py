@@ -13,7 +13,7 @@ class Player:
         self.ranking = ranking
         self.played_with = []
 
-    def __str__(self):
+    def __repr__(self):
         return f"{self.first_name} {self.name} [{self.tournament_score} pts]"
 
     def save_serialized_player(self, save_tournament_score=False):
