@@ -12,7 +12,7 @@ def create_player():
         user_entries["name"],
         user_entries["birthdate"],
         user_entries["gender"],
-        user_entries["total_score"],
+        # user_entries["total_score"],
         user_entries["ranking"],
     )
     serialized_player = player.save_serialized_player()
@@ -22,12 +22,12 @@ def create_player():
 
 def update_rankings(player, ranking, score=True):
     if score:
-        player.total_score += player.tournament_score
+        player.tournament_score
     player.ranking = ranking
     serialized_player = player.save_serialized_player(save_tournament_score=True)
     update_player_rank("players", serialized_player)
     print(
-        f"Update du rang de {player}:\nScore total: {player.total_score}\nRang: {player.ranking}"
+        f"Update du rang de {player}:\nScore total: {player.tournament_score}\nRang: {player.ranking}"
     )
 
 

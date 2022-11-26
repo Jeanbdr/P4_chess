@@ -136,7 +136,7 @@ def play_tournament(tournament, new_tournament_loaded=False):
     for i, player in enumerate(rankings):
         for t_player in tournament.players:
             if player.name == t_player.name:
-                t_player.total_score += player.tournament_score
+                t_player.tournament_score
                 t_player.ranking = str(i + 1)
     update_db("tournaments", tournament.save_serialized_tournament(save_rounds=True))
     return rankings
