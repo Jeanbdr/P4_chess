@@ -35,7 +35,7 @@ class CreatePlayer(View):
             "name": name,
             "birthdate": birthdate,
             "gender": gender,
-            "total_score": 0,
+            # "total_score": 0,
             "ranking": ranking,
         }
 

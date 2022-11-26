@@ -27,53 +27,55 @@ class Tournoi:
         self.rounds.append(round)
 
     def create_pairs(self, current_round):
+        player_pair = []
+        already_play = []
         if current_round == 0:
             sorted_players = sorted(self.players, key=lambda x: x.ranking, reverse=True)
-        else:
-            sorted_players = []
-            score_sorted = sorted(
-                self.players, key=lambda x: x.total_score, reverse=True
-            )
-            for i, player in enumerate(score_sorted):
-                try:
-                    sorted_players.append(player)
-                except player.total_score == score_sorted[i + 1].total_score:
-                    print("kehbvefkhvebfvkeb")
-                    if player.ranking > score_sorted[i + 1].ranking:
-                        best_player = player
-                        worst_player = score_sorted[i + 1]
+            top_half = sorted_players[: len(sorted_players) // 2]
+            bottom_half = sorted_players[len(sorted_players) // 2 :]
+            for i, player in enumerate(top_half):
+                x = 0
+                while True:
+                    try:
+                        player_2 = bottom_half[i + x]
+                    except IndexError:
+                        player_2 = bottom_half[i]
+                        player_pair.append((player, player_2))
+                        # player.played_with.append(player_2)
+                        # player_2.played_with.append(player)
+                        break
+                        # if player in player_2.played_with:
+                        x += 1
+                        continue
                     else:
-                        best_player = score_sorted[i + 1]
-                        worst_player = player
-                    sorted_players.append(best_player)
-                    sorted_players.append(worst_player)
-        top_half = sorted_players[: len(sorted_players) // 2]
-        bottom_half = sorted_players[len(sorted_players) // 2 :]
-
-        player_pair = []
-        import pdb
-
-        pdb.set_trace()
-        for i, player in enumerate(top_half):
+                        player_pair.append((player, player_2))
+                        # player.played_with.append(player_2)
+                        # player_2.played_with.append(player)
+                        break
+            return player_pair
+        else:
+            print("on est dans le else")
+            sorted_players = sorted(
+                self.players, key=lambda x: x.tournament_score, reverse=True
+            )
+            ranking_list = sorted_players[: len(sorted_players)]
             x = 0
-            while True:
-                try:
-                    player_2 = bottom_half[i + x]
-                except IndexError:
-                    player_2 = bottom_half[i]
-                    player_pair.append((player, player_2))
-                    player.played_with.append(player_2)
-                    player_2.played_with.append(player)
-                    break
-                if player in player_2.played_with:
-                    x += 1
-                    continue
-                else:
-                    player_pair.append((player, player_2))
-                    player.played_with.append(player_2)
-                    player_2.played_with.append(player)
-                    break
-        return player_pair
+            for i, player in enumerate(ranking_list):
+                x += 1
+                already_play.append(player)
+                while True:
+                    try:
+                        player_2 = ranking_list[i + x]
+                        already_play.append(player_2)
+                    except IndexError:
+                        player_2 = ranking_list[i]
+                        break
+                    else:
+                        player_pair.append((player, player_2))
+                        break
+                if (player, player_2) in already_play:
+                    pass
+            return player_pair
 
     def get_rankings(self, by_score=True):
         if by_score:
@@ -104,3 +106,68 @@ class Tournoi:
                 round.get_serialized_round() for round in self.rounds
             ]
         return serialized_tournament
+
+
+"""
+    def create_pairs(self, current_round): #SOFIEN 
+        all_pairs =[]
+        pairs = []
+        if current_round == 0:
+            print('current round 0 chacal')
+            sorted_players = sorted(self.players, key=lambda player: player.ranking, reverse=True)
+            top = sorted_players[:len(sorted_players)//2]
+            print(top)
+            bottom = sorted_players[len(sorted_players)//2:]
+            print(bottom)
+            for player_1, player_2 in zip(top, bottom):
+                pairs.append((player_1, player_2))
+        else:
+            sorted_players = sorted(self.players, key=lambda player:(player.tournament_score), reverse=True) #ranking
+            print('pas round 1')
+            already_in_pair =[]
+            for i in range(len(sorted_players)):
+                print('range faite')
+                player_1 = sorted_players[i]
+                print(f"player1 {player_1}")
+                if player_1 in already_in_pair:
+                    continue
+                for j in range(i+1, len(sorted_players)):
+                    player_2=sorted_players[j]
+                    print(f"player2 {player_2}")
+                    if player_2 in already_in_pair or (player_1, player_2) in all_pairs:
+                        continue
+                    pairs.append((player_1, player_2))
+                    already_in_pair.append((player_1, player_2)) #extend
+                    print('tes la')
+        return pairs
+
+            already_in_pairs = []
+            sorted_players = []
+            score_sorted_players = sorted(
+                self.players, key=lambda player: player.tournament_score, reverse=True
+            )
+            while True:
+                for i, player in enumerate(score_sorted_players): #range
+                    sorted_players.append(player)
+                    x = 0
+                    player_1 = sorted_players[i+x]
+                    print(f"player1{player}")
+                    already_in_pairs.append(player)
+                    if player_1 in already_in_pairs:
+                        x += 1
+                        #player = sorted_players[player+1]
+                    for j, player in enumerate(sorted_players):
+                        x=0
+                        player_2 = sorted_players[j+x]
+                        print(f"player2{player_2}")
+                        already_in_pairs.append(player_2)
+                        if player_2 in already_in_pairs:
+                            x+=1
+                            #player_2 = sorted_players[j+1]
+                        player_pair.append((player_1,player_2))
+                return player_pair
+
+
+
+
+"""
