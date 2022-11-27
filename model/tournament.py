@@ -1,6 +1,7 @@
 from model.round import Round
 
 ROUND_NUMBERS = 4
+Jesus = []
 
 
 class Tournoi:
@@ -28,7 +29,7 @@ class Tournoi:
 
     def create_pairs(self, current_round):
         player_pair = []
-        already_play = []
+        # already_play = []
         pairs = []
         if current_round == 0:
             sorted_players = sorted(self.players, key=lambda x: x.ranking, reverse=True)
@@ -58,25 +59,21 @@ class Tournoi:
         else:
             print("on est dans le else")
             sorted_players = sorted(
-                self.players, key=lambda x: x.tournament_score, reverse=True
+                self.players,
+                key=lambda x: (x.tournament_score, x.ranking),
+                reverse=True,
             )
-            for i in range(len(sorted_players)):
-                player = sorted_players[i]
-                player_2 = sorted_players[i + 1]
-                for (player, player_2) in already_play:
-                    player = sorted_players[i]
-                    player_2 = sorted_players[i + 1]
-                    already_play.append(player)
-                    already_play.append(player_2)
-                else:
-                    already_play.append(player)
-                    already_play.append(player_2)
-                print(f"player1 {player}")
-                print(f"player2 {player_2}")
-                print(len(already_play))
-                pairs.append((player, player_2))
-                print(already_play)
-                print(pairs)
+            already_in_match = []
+            print(sorted_players)
+            print(len(sorted_players))
+            p1 = sorted_players[0::2]
+            print(p1)
+            p2 = sorted_players[1::2]
+            print(p2)
+            for p1, p2 in zip(p1, p2):
+                player_pair.append((p1, p2))
+            print(player_pair)
+            return player_pair
 
     def get_rankings(self, by_score=True):
         if by_score:
