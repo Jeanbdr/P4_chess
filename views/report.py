@@ -45,7 +45,7 @@ class Report(View):
                     print(f"Détails du joueur {selected_player['name']}:")
                     print(
                         f"Rang: {selected_player['ranking']}\n"
-                        f"Score total: {selected_player['tournament_score']}\n"  # total_score a la place de tournament_score
+                        f"Score total: {selected_player['tournament_score']}\n"  # total_score / tournament_score
                         f"Nom: {selected_player['name']}\n"
                         f"Prénom: {selected_player['first_name']}\n"
                         f"Date de naissance: {selected_player['birthdate']}\n"

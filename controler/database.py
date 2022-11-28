@@ -1,5 +1,4 @@
-from tinydb import TinyDB, Query, where
-from tinydb import where
+from tinydb import TinyDB, where
 from model.player import Player
 from model.tournament import Tournoi
 from model.round import Round

@@ -1,7 +1,6 @@
 from controler.database import save_db, update_player_rank, load_db, update_player
 from model.player import Player
 from views.players import CreatePlayer
-from views.verification import View
 
 
 def create_player():
