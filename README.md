@@ -31,3 +31,12 @@
     options comment consulté un rapport, créer un tournoi, ajouter des 
     joueurs etc. En saisissant une des options proposées vous pourrez
     profiter du programme.
+
+### Génerer un rapport flake-8
+
+    - Dans le terminal une fois situé dans le dossier contenant le
+    programme, tapez la commande suivante :
+
+        flake8 --format=html --htmldir=report-flake
+
+    Le rapport sera crée dans le dossier report-flake
