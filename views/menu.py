@@ -117,19 +117,20 @@ class MainMenu(View):
         print()
         user_input = self.get_user_entry(
             msg_display="Mise à jour des classements\n"
-            "0 - Automatiquement\n"
-            "1 - Manuellement\n"
-            "q - Quitter\n> ",
+            # "0 - Automatiquement\n"
+            "1 - Manuellement\n" "q - Quitter\n> ",
             msg_error="Veuillez entrer une valeur valide",
             value_type="selection",
-            assertions=["0", "1", "q"],
+            assertions=["1", "q"],  # "0"
         )
+        """
         if user_input == "0":
             for i, player in enumerate(rankings):
                 print(player.name)
                 update_rankings(player, i + 1)
+        """
 
-        elif user_input == "1":
+        if user_input == "1":
             for player in rankings:
                 rank = self.get_user_entry(
                     msg_display=f"Rang de {player}:\n> ",

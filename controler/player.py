@@ -12,7 +12,6 @@ def create_player():
         user_entries["name"],
         user_entries["birthdate"],
         user_entries["gender"],
-        # user_entries["total_score"],
         user_entries["ranking"],
     )
     serialized_player = player.save_serialized_player()

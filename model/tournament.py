@@ -40,16 +40,9 @@ class Tournoi:
                     except IndexError:
                         player_2 = bottom_half[i]
                         player_pair.append((player, player_2))
-                        # player.played_with.append(player_2)
-                        # player_2.played_with.append(player)
                         break
-                        # if player in player_2.played_with:
-                        x += 1
-                        continue
                     else:
                         player_pair.append((player, player_2))
-                        # player.played_with.append(player_2)
-                        # player_2.played_with.append(player)
                         break
             print(player_pair)
             return player_pair

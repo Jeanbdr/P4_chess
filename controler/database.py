@@ -23,7 +23,6 @@ def update_player_rank(db_name, serialized_data):
     db.update(
         {
             "ranking": serialized_data["ranking"],
-            # "total_score": serialized_data["total_score"],
         },
         where("name") == serialized_data["name"],
     )
@@ -41,7 +40,6 @@ def load_player(serialized_player, load_tournament_score=False):
         serialized_player["name"],
         serialized_player["birthdate"],
         serialized_player["gender"],
-        # serialized_player["total_score"],
         serialized_player["ranking"],
     )
     if load_tournament_score:
