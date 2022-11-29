@@ -9,10 +9,8 @@ from controler.database import save_db, update_db, load_player, load_tournament
 def create_tournament():
 
     menu = View()
-    # Récupération des infos du tournoi
     user_entries = CreateTournament().display_menu()
 
-    # Choix chargement joueurs:
     user_input = menu.get_user_entry(
         msg_display="0 - Créer des joueurs\n1 - Charger des joueurs\n>>> ",
         msg_error="Saisir 0 ou 1",
@@ -20,7 +18,6 @@ def create_tournament():
         assertions=["0", "1"],
     )
 
-    # Load and creation of players
     if user_input == "1":
         players = []
         user_input = menu.get_user_entry(
@@ -39,7 +36,6 @@ def create_tournament():
         while len(players) < user_entries["nb_players"]:
             players.append(create_player())
 
-    # Creation and save of tournament
     tournament = Tournoi(
         user_entries["name"],
         user_entries["place"],
@@ -62,7 +58,6 @@ def play_tournament(tournament, new_tournament_loaded=False):
     print()
 
     while True:
-        # Number of round to play if tournament has been loaded
         a = 0
         if new_tournament_loaded:
             for round in tournament.rounds:
@@ -131,7 +126,6 @@ def play_tournament(tournament, new_tournament_loaded=False):
         else:
             break
 
-    # sauvegarde du tournoi et on retourne les résultats
     rankings = tournament.get_rankings()
     for i, player in enumerate(rankings):
         for t_player in tournament.players:
