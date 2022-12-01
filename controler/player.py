@@ -4,7 +4,6 @@ from views.players import CreatePlayer
 
 
 def create_player():
-    # Récupération et sauvegarge des infos du joueur
     user_entries = CreatePlayer().display_menu()
     player = Player(
         user_entries["first_name"],

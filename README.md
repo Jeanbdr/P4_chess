@@ -27,8 +27,8 @@
 
 ### Comment utiliser le programme :
 
-    - Une fois lancée un menu apparaîtra vous vous proposant plusieurs
-    options comment consulté un rapport, créer un tournoi, ajouter des 
+    - Une fois lancée un menu apparaîtra vous proposant plusieurs
+    options comme consulter un rapport, créer un tournoi, ajouter des 
     joueurs etc. En saisissant une des options proposées vous pourrez
     profiter du programme.
 
