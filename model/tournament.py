@@ -31,7 +31,9 @@ class Tournoi:
         if current_round == 0:
             sorted_players = sorted(self.players, key=lambda x: x.ranking, reverse=True)
             top_half = sorted_players[: len(sorted_players) // 2]
+            print(f"top {top_half}")
             bottom_half = sorted_players[len(sorted_players) // 2:]
+            print(bottom_half)
             for player_1, player_2 in zip(top_half, bottom_half):
                 player_pair.append((player_1, player_2))
             return player_pair
@@ -42,7 +44,9 @@ class Tournoi:
                 reverse=True,
             )
             odd_players = sorted_players[0::2]
+            print(odd_players)
             even_players = sorted_players[1::2]
+            print(even_players)
             for player_1, player_2 in zip(odd_players, even_players):
                 player_pair.append((player_1, player_2))
             return player_pair
