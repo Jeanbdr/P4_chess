@@ -35,7 +35,7 @@
 ### Génerer un rapport flake-8
 
     IMPORTANT : flake-8 ne supportant pas les dernières versions de 
-    python (3.11) si aucun erreur n'est relevé le fichier html n'est
+    python (3.11) si aucune erreur n'est relevée le fichier html n'est
     pas crée 
 
     - Dans le terminal une fois situé dans le dossier contenant le
