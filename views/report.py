@@ -206,7 +206,7 @@ class Report(View):
     def sort_players(players: list, by_rank: bool) -> list:
 
         if by_rank:
-            sorted_players = sorted(players, key=itemgetter("ranking"))
+            sorted_players = sorted(players, key=itemgetter("ranking"), reverse=True)
         else:
             sorted_players = sorted(players, key=itemgetter("name"))
 
