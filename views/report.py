@@ -10,10 +10,6 @@ class Report(View):
 
     def display_players_report(self, players=[]):
 
-        # Si on veux afficher les joueurs classés d'un tournoi en particulier, on passe True à
-        # tournaments_player et on donne une liste de joueurs en arguement.
-        # Si on ne précise rien, c'est tout les joueurs enregistrés dans la bdd qui seront chargés.
-
         players = players
 
         builded_selection = self.build_selection(
@@ -25,8 +21,6 @@ class Report(View):
         while True:
             print("Classement: ")
 
-            # Affichage du classement
-            # Choix d'un joueur dans le classement afin de voir ses détails
             user_input = self.get_user_entry(
                 msg_display=builded_selection["msg"] + "r - Retour\n> ",
                 msg_error="Veuillez faire un choix valide.",
@@ -40,12 +34,11 @@ class Report(View):
             else:
                 selected_player = players[int(user_input) - 1]
 
-                # Affichage des détails du joueur
                 while True:
                     print(f"Détails du joueur {selected_player['name']}:")
                     print(
                         f"Rang: {selected_player['ranking']}\n"
-                        f"Score total: {selected_player['tournament_score']}\n"  # total_score / tournament_score
+                        f"Score total: {selected_player['tournament_score']}\n"
                         f"Nom: {selected_player['name']}\n"
                         f"Prénom: {selected_player['first_name']}\n"
                         f"Date de naissance: {selected_player['birthdate']}\n"
@@ -72,9 +65,6 @@ class Report(View):
         while True:
             print("Tournois:")
 
-            # Affichage de tout les tournois
-            # Choix d'un tournoi afin d'en voir les détails
-
             user_input = self.get_user_entry(
                 msg_display=builded_selection["msg"] + "r - Retour\n> ",
                 msg_error="Veuillez faire un choix valide.",
@@ -87,8 +77,6 @@ class Report(View):
 
             else:
                 selected_tournament = self.tournaments[int(user_input) - 1]
-
-                # Affichage des détails du tournoi choisi
 
                 while True:
                     print(
