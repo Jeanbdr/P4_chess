@@ -32,7 +32,7 @@ class Tournoi:
         if current_round == 0:
             sorted_players = sorted(self.players, key=lambda x: x.ranking, reverse=True)
             top_half = sorted_players[: len(sorted_players) // 2]
-            bottom_half = sorted_players[len(sorted_players) // 2 :]
+            bottom_half = sorted_players[len(sorted_players) // 2:]
             for player_1, player_2 in zip(top_half, bottom_half):
                 player_pair.append((player_1, player_2))
                 play_with.append(player_1)
